@@ -49,26 +49,36 @@ export function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome, Gustavo</Text>
+      <Text style={styles.title} testID="welcome">
+        Welcome, Gustavo
+      </Text>
       <Text style={styles.textGreeting}>{greeting}</Text>
       <TextInput
+        testID="input-new"
         style={styles.input}
         placeholder="New Skill"
         placeholderTextColor="#555"
         onChangeText={setNewSkill}
         value={newSkill}
       />
-      <Button title="Add" onPress={handleAddNewSkill} />
+      <Button testID="button-add" title="Add" onPress={handleAddNewSkill} />
 
       <Text style={[styles.title, styles.skillsTitle]}>My Skills</Text>
-      <FlatList
-        data={mySkills}
-        keyExtractor={item => item.id}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <SkillCard skill={item} onPress={() => handleRemoveSkill(item.id)} />
-        )}
-      />
+      {mySkills && (
+        <FlatList
+          testID="flat-list-skills"
+          data={mySkills}
+          keyExtractor={item => item.id}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="never"
+          renderItem={({ item }) => (
+            <SkillCard
+              skill={item}
+              onPress={() => handleRemoveSkill(item.id)}
+            />
+          )}
+        />
+      )}
     </View>
   );
 }
